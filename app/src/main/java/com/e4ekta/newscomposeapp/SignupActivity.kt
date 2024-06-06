@@ -1,5 +1,6 @@
 package com.e4ekta.newscomposeapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -182,6 +183,8 @@ fun SignupPage() {
             Button(
                 onClick = {
                     Toast.makeText(context, signupFieldState.value.userName, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, DashboardActivity::class.java)
+                    context.startActivity(intent)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
