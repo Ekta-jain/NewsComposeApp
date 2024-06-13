@@ -18,8 +18,12 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.e4ekta.newscomposeapp.ui.theme.NewsComposeAppTheme
@@ -41,6 +45,7 @@ class DashboardActivity : ComponentActivity() {
 
 @Composable
 fun DashBoardPage() {
+    val items = remember { mutableStateListOf<String>() }
     val myItems = listOf("Item 1", "Item 2", "Item 3")
 //    Column(
 //        modifier = Modifier
@@ -54,11 +59,17 @@ fun DashBoardPage() {
 //    }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        ItemGridView(myItems)
+        ItemGridView(items)
         //FAB custom color
-        FloatingActionButtonBottomRight(onClick = {
-            // Handle FAB click
-        })
+        FloatingActionButton(
+            onClick = {
+                      // on Click add one item on list
+                items.add("item 1")
+            }, modifier = Modifier.align(Alignment.BottomEnd).padding(10.dp)
+        ) {
+            // FAB content, e.g., an icon
+            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
+        }
     }
 }
 
@@ -66,12 +77,12 @@ fun DashBoardPage() {
 fun FloatingActionButtonBottomRight(onClick: () -> Unit) {
 
 
-        FloatingActionButton(
-            onClick = onClick
-        ) {
-            // FAB content, e.g., an icon
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
-        }
+//        FloatingActionButton(
+//            onClick = onClick
+//        ) {
+//            // FAB content, e.g., an icon
+//            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
+//        }
 
 }
 
@@ -83,8 +94,12 @@ fun ItemGridView(items: List<String> ) {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(8.dp)
     ) {
-        items(10) { item ->
-            Box(modifier = Modifier.size(100.dp,100.dp).background(Color.Red))
+        items(items.size) { item ->
+            Box(modifier = Modifier
+                .size(100.dp, 100.dp)
+                .background(Color.Red)){
+
+            }
         }
     }
 }
